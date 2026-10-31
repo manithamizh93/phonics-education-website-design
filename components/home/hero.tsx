@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { assetPath } from '@/lib/asset-path'
 import { ArrowRight, Globe2, Star, Video } from 'lucide-react'
 
 export function Hero() {
@@ -76,7 +77,7 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border-8 border-card shadow-2xl shadow-primary/15">
             <Image
-              src="/images/hero-child.png"
+              src={assetPath('/images/hero-child.png')}
               alt="A young girl smiling while learning letter sounds in an online phonics class"
               fill
               priority
