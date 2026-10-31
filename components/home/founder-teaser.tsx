@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { assetPath } from '@/lib/asset-path'
 import Link from 'next/link'
 import { ArrowRight, Check } from 'lucide-react'
 
@@ -14,7 +15,7 @@ export function FounderTeaser() {
       <div className="mx-auto grid max-w-6xl items-center gap-12 overflow-hidden rounded-[2rem] bg-foreground p-6 text-primary-foreground sm:p-10 lg:grid-cols-2 lg:p-14">
         <div className="relative aspect-square overflow-hidden rounded-3xl lg:aspect-[4/5]">
           <Image
-            src="/images/rajalakshmi.jpg"
+            src={assetPath('/images/rajalakshmi.jpg')}
             alt="Rajalakshmi S, founder of EchoGen Phonics"
             fill
             sizes="(min-width: 1024px) 480px, 90vw"
