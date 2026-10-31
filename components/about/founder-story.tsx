@@ -9,11 +9,11 @@ export function FounderStory() {
           <div aria-hidden="true" className="absolute -left-4 -top-4 size-full rounded-[2.5rem] bg-accent" />
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border-8 border-card shadow-xl">
             <Image
-              src="/images/teacher-online.png"
+              src="/images/rajalakshmi.jpg"
               alt="Rajalakshmi S, founder of EchoGen Phonics"
               fill
               sizes="(min-width: 1024px) 440px, 90vw"
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
           <div className="absolute -bottom-6 -right-2 flex items-center gap-3 rounded-2xl bg-card p-4 shadow-xl sm:-right-8">

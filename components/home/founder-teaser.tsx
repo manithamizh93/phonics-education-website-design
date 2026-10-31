@@ -14,11 +14,11 @@ export function FounderTeaser() {
       <div className="mx-auto grid max-w-6xl items-center gap-12 overflow-hidden rounded-[2rem] bg-foreground p-6 text-primary-foreground sm:p-10 lg:grid-cols-2 lg:p-14">
         <div className="relative aspect-square overflow-hidden rounded-3xl lg:aspect-[4/5]">
           <Image
-            src="/images/teacher-online.png"
-            alt="Rajalakshmi S teaching an online phonics lesson"
+            src="/images/rajalakshmi.jpg"
+            alt="Rajalakshmi S, founder of EchoGen Phonics"
             fill
             sizes="(min-width: 1024px) 480px, 90vw"
-            className="object-cover"
+            className="object-cover object-top"
           />
         </div>
         <div>
