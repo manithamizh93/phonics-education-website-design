@@ -11,7 +11,7 @@ export function Logo({ inverted = false }: { inverted?: boolean }) {
         )}
       >
         <Image
-          src="/images/logo.png"
+          src="{assetPath('/images/logo.png')}"
           alt=""
           width={112}
           height={112}
