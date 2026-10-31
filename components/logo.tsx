@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { assetPath } from '@/lib/asset-path'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
