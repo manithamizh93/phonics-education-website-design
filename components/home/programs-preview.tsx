@@ -1,8 +1,10 @@
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
 import { programs } from '@/lib/site'
+import { assetPath } from '@/lib/asset-path'
 
 const badgeTone = {
   primary: 'bg-primary text-primary-foreground',
@@ -41,7 +43,7 @@ export function ProgramsPreview() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
-                    src={p.image || '/placeholder.svg'}
+                    src={assetPath(p.image || '/placeholder.svg')}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 270px, (min-width: 640px) 45vw, 90vw"
