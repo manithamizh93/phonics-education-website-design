@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import { assetPath } from '@/lib/asset-path'
 import Link from 'next/link'
@@ -12,8 +13,8 @@ export function Logo({ inverted = false }: { inverted?: boolean }) {
         )}
       >
         <Image
-          src="{assetPath('/images/logo.png')}"
-          alt=""
+          src={assetPath('/images/logo.png')}
+          alt="EchoGen Phonics"
           width={112}
           height={112}
           priority
