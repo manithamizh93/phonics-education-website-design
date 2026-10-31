@@ -17,12 +17,9 @@ export const metadata: Metadata = {
     'Live online phonics classes for children aged 3–12, struggling reader support and adult phonics masterclasses. Structured, evidence-based literacy teaching by Rajalakshmi S.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
-      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/apple-icon.png',
+    icon: [{ url: '/images/logo.png', type: 'image/png', sizes: '500x500' }],
+    shortcut: '/images/logo.png',
+    apple: '/images/logo.png',
   },
 }
 

@@ -1,15 +1,23 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 export function Logo({ inverted = false }: { inverted?: boolean }) {
   return (
-    <Link href="/" className="group flex items-center gap-2.5" aria-label="EchoGen Phonics home">
+    <Link href="/" className="group flex items-center gap-3" aria-label="EchoGen Phonics home">
       <span
-        aria-hidden="true"
-        className="relative flex size-10 items-center justify-center rounded-2xl bg-primary font-heading text-lg font-bold text-primary-foreground shadow-sm transition-transform group-hover:-rotate-6"
+        className={cn(
+          'relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-background shadow-sm ring-1 ring-border transition-transform group-hover:-rotate-6 sm:size-14',
+        )}
       >
-        Eg
-        <span className="absolute -right-1 -top-1 size-3.5 rounded-full border-2 border-background bg-accent" />
+        <Image
+          src="/images/logo.png"
+          alt=""
+          width={112}
+          height={112}
+          priority
+          className="size-full scale-110 object-contain"
+        />
       </span>
       <span className="flex flex-col leading-none">
         <span className={cn('font-heading text-lg font-bold', inverted ? 'text-primary-foreground' : 'text-foreground')}>
