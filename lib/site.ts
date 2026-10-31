@@ -1,3 +1,4 @@
+import { assetPath } from './asset-path';
 export const site = {
   name: 'EchoGen Phonics',
   tagline: 'Learn. Grow. Succeed.',
