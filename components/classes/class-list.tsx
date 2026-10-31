@@ -1,8 +1,10 @@
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Check, GraduationCap, Users } from 'lucide-react'
 import { programs } from '@/lib/site'
 import { cn } from '@/lib/utils'
+import { assetPath } from '@/lib/asset-path'
 
 const tone = {
   primary: { badge: 'bg-primary text-primary-foreground', soft: 'bg-secondary', check: 'bg-primary text-primary-foreground' },
@@ -25,7 +27,7 @@ export function ClassList() {
               <article className={cn('grid lg:grid-cols-2', i % 2 === 1 && 'lg:[&>*:first-child]:order-2')}>
                 <div className={cn('relative min-h-72 lg:min-h-full', t.soft)}>
                   <Image
-                    src={p.image || '/placeholder.svg'}
+                    src={assetPath(p.image || '/placeholder.svg')}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 560px, 95vw"
