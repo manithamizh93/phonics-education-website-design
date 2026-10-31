@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
-import { Send } from 'lucide-react'
+import { Loader2, Send } from 'lucide-react'
 import { programs, site } from '@/lib/site'
 
 const inputClass =
@@ -11,33 +11,48 @@ const inputClass =
 export function ContactForm() {
   const searchParams = useSearchParams()
   const preselected = programs.some((p) => p.slug === searchParams.get('class')) ? searchParams.get('class')! : ''
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const data = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const data = new FormData(form)
     const program = programs.find((p) => p.slug === data.get('class'))
-    const message = [
-      `Hello EchoGen Phonics! I'd like to book a free demo.`,
-      `Name: ${data.get('name')}`,
-      `Phone: ${data.get('phone')}`,
-      data.get('email') ? `Email: ${data.get('email')}` : '',
-      data.get('age') ? `Learner age: ${data.get('age')}` : '',
-      program ? `Interested in: ${program.title}` : '',
-      data.get('message') ? `Message: ${data.get('message')}` : '',
-    ]
-      .filter(Boolean)
-      .join('\n')
+    const name = String(data.get('name') ?? '').trim()
+    const email = String(data.get('email') ?? '').trim()
 
-    window.open(`https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener')
-    setSent(true)
+    setStatus('sending')
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `New demo class enquiry from ${name}`,
+          _template: 'table',
+          _captcha: 'false',
+          ...(email ? { _replyto: email } : {}),
+          Name: name,
+          Phone: String(data.get('phone') ?? '').trim(),
+          Email: email || 'Not provided',
+          'Learner age': String(data.get('age') ?? '').trim() || 'Not provided',
+          'Class of interest': program ? `${program.title} (${program.ages})` : 'Not sure yet',
+          Message: String(data.get('message') ?? '').trim() || 'No message',
+        }),
+      })
+      const json = await res.json().catch(() => null)
+      if (!res.ok || json?.success === 'false' || json?.success === false) throw new Error('Send failed')
+      form.reset()
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="rounded-[2rem] border border-border bg-card p-7 shadow-xl shadow-primary/5 sm:p-10">
       <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">Book your free demo class</h2>
       <p className="mt-2 text-muted-foreground">
-        {"Fill in your details and we'll continue the conversation on WhatsApp."}
+        {"Fill in your details and we'll get back to you within 24 hours."}
       </p>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -102,13 +117,31 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-md shadow-primary/20 transition-transform hover:-translate-y-0.5 sm:w-auto"
+        disabled={status === 'sending'}
+        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-md shadow-primary/20 transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:w-auto"
       >
-        Send enquiry
-        <Send className="size-4" aria-hidden="true" />
+        {status === 'sending' ? 'Sending...' : 'Send enquiry'}
+        {status === 'sending' ? (
+          <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+        ) : (
+          <Send className="size-4" aria-hidden="true" />
+        )}
       </button>
-      <p role="status" className="mt-4 text-sm font-semibold text-primary">
-        {sent ? 'Thank you! WhatsApp has opened with your message — just tap send.' : ''}
+      <p
+        role="status"
+        aria-live="polite"
+        className={`mt-4 text-sm font-semibold ${status === 'error' ? 'text-destructive' : 'text-primary'}`}
+      >
+        {status === 'sent' && "Thank you! Your enquiry has been sent. We'll be in touch soon."}
+        {status === 'error' && (
+          <>
+            {'Sorry, something went wrong. Please try again or '}
+            <a href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="underline">
+              message us on WhatsApp
+            </a>
+            .
+          </>
+        )}
       </p>
     </form>
   )
