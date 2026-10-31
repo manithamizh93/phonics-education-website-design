@@ -5,7 +5,7 @@ export const site = {
   phone: '+91 9751820877',
   phoneHref: 'tel:+919751820877',
   whatsappNumber: '919751820877',
-  email: 'echogenphonics@gmail.com',
+  email: 'manithamizh1993@gmail.com',
   instagram: 'https://www.instagram.com/echogenphonics',
   location: 'Chennai, India · Classes online worldwide',
 }
